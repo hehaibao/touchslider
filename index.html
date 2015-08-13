@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="author" content="haibao"/>
+	<meta name="url" content="http://wwww.hehaibao.com/"/>
+	<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	<title>zepto touchslider 移动端轮播插件 - by haibao</title>
+</head>
+<body>
+<!--html-->
+<div id="sliderBox"></div>
+	
+<pre>
+  Tips: 该插件依赖 zepto.min.js，js压缩前4k，压缩后2k
+
+  JS调用方法：
+
+  1. 无链接的情况下：
+  
+  $('#sliderBox').touchslider({
+	srcArr: [
+	"http://fakeimg.pl/320x175/666666",
+	"http://fakeimg.pl/320x175/ff0000/",
+	"http://fakeimg.pl/320x175/222222/",
+	"http://fakeimg.pl/320x175/999999/"
+	]
+  });
+  
+  2. 有链接的情况下：
+  $('#sliderBox').touchslider({
+    srcArr: [
+  [
+	"http://fakeimg.pl/320x175/666666",
+	"http://www.hehaibao.com/"
+  ],
+  [
+	"http://fakeimg.pl/320x175/ff0000",
+	"http://www.hehaibao.com/"
+  ],
+  [
+	"http://fakeimg.pl/320x175/222222",
+	"http://www.hehaibao.com/"
+  ],
+  [
+	"http://fakeimg.pl/320x175/999999",
+	"http://www.hehaibao.com/"
+  ]
+  ]
+  });
+  
+	
+   其他自定义参数：
+
+  $('#sliderBox').touchslider({
+	box: '#sliderBox',
+	srcArr: [],
+	arrows: false,
+	auto: true,
+	autoTime: 2000
+  });
+</pre>
+	
+<!--js-->
+<script src="js/zepto.min.js"></script>
+<script src="js/zepto.touchslider.min.js"></script>
+<script>
+	$(function(){
+		$('#sliderBox').touchslider({
+			srcArr: [
+				[
+					"http://fakeimg.pl/320x175/666666",
+					"http://www.hehaibao.com/"
+				],
+				[
+					"http://fakeimg.pl/320x175/ff0000",
+					"http://www.hehaibao.com/"
+				],
+				[
+					"http://fakeimg.pl/320x175/222222",
+					"http://www.hehaibao.com/"
+				],
+				[
+					"http://fakeimg.pl/320x175/999999",
+					"http://www.hehaibao.com/"
+				]
+			]
+		});
+	});
+</script>
+</body>
+</html>
