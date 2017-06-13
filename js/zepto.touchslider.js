@@ -1,15 +1,15 @@
 /**
 * zepto touchSlider - 移动端轮播插件
-* @version 2.0.0
+* @version 2.0.1
 * @author haibao <hhb219@163.com> <http://www.hehaibao.com/>
 */
 ;(function($) {
-	var a = 0, i = 0, o, b, n, s, st, wrapper, container, slides, slideNum, slideWidth, srcs, links;
+	var a = 0, i = 0, o, b, s, st, wrapper, container, slides, slideNum, slideWidth, srcs, links;
 	methods = {
 		init: function(options) {
 			return this.each(function() {
 				var $this = $(this),opt = $this.data("touchSlider");
-				if (typeof(opt) == "undefined") {
+				if (typeof(opt) === "undefined") {
 					var defaults = {
 						box: "#sliderBox", //容器元素
 						srcArr: [], //图片数组
@@ -25,7 +25,7 @@
             	slideNum = opt.srcArr.length || 4;
 	            slideWidth = wrapper.offset().width;
 	            
-	            if(slideNum > 1) {
+	            if(slideNum >= 1) {
 		            o = '<ul id="slider">';
 					for (i = 0; i < slideNum; i++) {
 						srcs = opt.srcArr[i].length == 2 ? opt.srcArr[i][0] : opt.srcArr[i];
@@ -37,12 +37,22 @@
 					
 					container = wrapper.children().first();
 	            	slides = container.children();
-		            container.css({'width':slideNum * slideWidth,'height':'100%','overflow':'hidden'});
-		            slides.css({'width':slideWidth,'height':'100%','float':'left'});
+		            container.css({
+						'width':slideNum * slideWidth,
+						'height':'100%',
+						'overflow':'hidden'
+					});
+		            slides.css({
+						'width':slideWidth,
+						'height':'100%',
+						'float':'left'
+					});
 	            
 					if(opt.arrows){
 						b = '<ol id="arrow">';
-						for (i = 0; i < slideNum; i++) { i == a ? b += '<li class="active"></li>' : b += "<li></li>"; }
+						for (i = 0; i < slideNum; i++) {
+							i == a ? b += '<li class="active"></li>' : b += "<li></li>";
+						}
 						b += "</ol>";
 						$(this).append(b);
 						$(this).find("#arrow li").on('tap click',function() {
@@ -51,11 +61,12 @@
 						});
 					}
 					if(opt.auto) methods.c(opt);
-					$(this).on('swipeLeft', function() {
+					var myTouch = util.toucher(document.getElementById('slider'));
+					myTouch.on('swipeLeft', function() {
 						methods.r(opt,'next');
-					}).on('swipeRight',function() {
+					}).on('swipeRight', function() {
 						methods.r(opt,'prev');
-					})
+					});
 				}
 			})
 		},
@@ -63,21 +74,33 @@
 			methods.c(o);
 			if(d == 'prev'){
 				a--;
-				if (a < 0) a = slideNum - 1;
+				if (a < 0) {
+					a = slideNum - 1;
+				}
 			}else if(d == 'next'){
 				a++;
-				if (a >= slideNum) a = 0;
+				if (a >= slideNum) {
+					a = 0;
+				}
 			}
             container.css({
                 '-webkit-transition-duration':'400ms',
-                '-webkit-transform':'translate3D(' + -(a * slideWidth) + 'px,0,0)'
+                '-webkit-transform':'translate3D(' + -(a * slideWidth) + 'px,0,0)',
+				'transition-duration':'400ms',
+				'transform':'translate3D(' + -(a * slideWidth) + 'px,0,0)'
             });
-			wrapper.find("ol").find("li").removeClass("active").eq(a).addClass("active");
+			wrapper.find("ol li").removeClass("active").eq(a).addClass("active");
 		},
 		c: function(o){
 			clearInterval(s);
 			clearTimeout(st);
-			if(o.auto) st = setTimeout(function() { s = setInterval(function() { methods.r(o,'next'); }, o.autoTime); }, o.autoTime)
+			if(o.auto) {
+				st = setTimeout(function() {
+					s = setInterval(function() {
+						methods.r(o,'next');
+					}, o.autoTime);
+				}, o.autoTime);
+			}
 		}
 	};
 	$.fn.touchslider = function(method) {
