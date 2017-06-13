@@ -45,15 +45,15 @@
 						for (i = 0; i < slideNum; i++) { i == a ? b += '<li class="active"></li>' : b += "<li></li>"; }
 						b += "</ol>";
 						$(this).append(b);
-						$(this).find("#arrow li").on('tap',function() {
+						$(this).find("#arrow li").on('tap click',function() {
 							a = $(this).index();
 							methods.r(opt,'tap');
 						});
 					}
 					if(opt.auto) methods.c(opt);
-					$(this).swipeLeft(function() {
+					$(this).on('swipeLeft', function() {
 						methods.r(opt,'next');
-					}).swipeRight(function() {
+					}).on('swipeRight',function() {
 						methods.r(opt,'prev');
 					})
 				}
