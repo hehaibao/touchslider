@@ -11,4 +11,5 @@ Dependencies：
     zepto.touchslider.js depends on the following libraries:
 
 * [zepto](http://zeptojs.com/)
+* [toucher](https://github.com/bh-lay/toucher)
 
